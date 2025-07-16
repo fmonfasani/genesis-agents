@@ -11,7 +11,7 @@ MANDAMIENTOS:
 
 import importlib
 import importlib.util
-from typing import List, Dict, Set, Optional
+from typing import List, Dict, Set, Optional, Any
 from pathlib import Path
 import sys
 
