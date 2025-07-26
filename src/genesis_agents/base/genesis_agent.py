@@ -58,34 +58,14 @@ except ImportError:
         ARCHITECTURE_DESIGN = "architecture_design"
         API_GENERATION = "api_generation"
 
-try:
-    from genesis_agents.base.exceptions import (
-        AgentException, 
-        TaskExecutionError, 
-        AgentInitializationError,
-        TaskTimeoutError,
-        AgentOverloadError,
-        CapabilityNotSupportedError
-    )
-except ImportError:
-    # Fallback temporal
-    class AgentException(Exception):
-        pass
-    
-    class TaskExecutionError(AgentException):
-        pass
-    
-    class AgentInitializationError(AgentException):
-        pass
-    
-    class TaskTimeoutError(TaskExecutionError):
-        pass
-    
-    class AgentOverloadError(AgentException):
-        pass
-    
-    class CapabilityNotSupportedError(AgentException):
-        pass
+from genesis_agents.base.exceptions import (
+    AgentException,
+    TaskExecutionError,
+    AgentInitializationError,
+    TaskTimeoutError,
+    AgentOverloadError,
+    CapabilityNotSupportedError
+)
 
 
 class AgentStatus(str, Enum):
