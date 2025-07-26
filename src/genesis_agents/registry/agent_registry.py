@@ -15,7 +15,12 @@ from typing import Dict, List, Optional, Type, Any, Set
 from pathlib import Path
 
 # DEPENDENCIA: Solo MCPturbo (hub independiente)
-from mcpturbo.agents import AgentRegistry as MCPAgentRegistry
+try:
+    from mcpturbo.agents import AgentRegistry as MCPAgentRegistry
+    MCP_AVAILABLE = True
+except ImportError:
+    MCPAgentRegistry = object
+    MCP_AVAILABLE = False
 
 from genesis_agents.base.genesis_agent import GenesisAgent
 from genesis_agents.base.capabilities import AgentCapability, CapabilityCategory
@@ -362,7 +367,9 @@ class GenesisAgentRegistry:
             "capabilities_total": len(self.capabilities_map),
             "categories_covered": len(self.category_map),
             "active_agents": len([a for a in self.agents.values() if a.status.value == "ready"]),
-            "mcp_integration": self.mcp_registry is not None
+        "mcp_integration": self.mcp_registry is not None,
+        "agent_versions": {agent_id: agent.version for agent_id, agent in self.agents.items()},
+        "capability_distribution": {cap.value: len(agents) for cap, agents in self.capabilities_map.items()}
         }
     
     def health_check(self) -> Dict[str, Any]:
